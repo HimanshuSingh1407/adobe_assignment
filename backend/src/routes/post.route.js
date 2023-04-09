@@ -92,6 +92,11 @@ app.get('/analytics/users/top-liked', async (req, res) => {
   
 })
 
+app.get("/", async (req, res) => {
+  const users = await PostModel.find();
+  res.send(users);
+});
+
 
 module.exports =app;
 

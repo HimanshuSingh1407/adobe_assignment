@@ -1,12 +1,11 @@
-import PostForm from "./Pages/PostForm";
-import UserForm from "./Pages/UserForm";
-
+import Navbar from "./Component/Navbar";
+import AllRoutes from "./Routes/AllRoutes";
 
 function App() {
   return (
     <>
-      {/* <UserForm /> */}
-      <PostForm />
+      <Navbar />
+      <AllRoutes />
     </>
   );
 }

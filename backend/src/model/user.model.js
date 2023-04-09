@@ -9,6 +9,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     min: 1,
     max: 50,
+    require:true
   },
   email: {
     type: String,
@@ -23,6 +24,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     min: 0,
     max: 200,
+    require:true
   },
 },{timestamps: true });
 

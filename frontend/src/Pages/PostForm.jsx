@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Box,
@@ -7,42 +7,74 @@ import {
   Input,
   Textarea,
   Button,
+  Heading,
 } from "@chakra-ui/react";
+import axios from "axios";
 
-const PostForm = ({ onSubmit, initialValues = {} }) => {
-  const [title, setTitle] = useState(initialValues.title || "");
-  const [content, setContent] = useState(initialValues.content || "");
+const PostForm = () => {
+  const [user, setUser] = useState("");
+  const [content, setContent] = useState("");
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    setUser(userData);
+    console.log(user);
+  }, []);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onSubmit({ title, content });
+
+    const PostData = { user, content };
+    console.log(PostData);
+
+    try {
+      const response = await axios.post("http://localhost:8080/posts", {
+        ...PostData,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
-    <Box maxW="md" mx="auto">
-      <FormControl id="title">
-        <FormLabel>Title</FormLabel>
-        <Input
-          type="text"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-      </FormControl>
+    <Box
+      maxW="md"
+      mx="auto"
+      padding={"2rem"}
+      marginTop="5rem"
+      boxShadow={"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"}
+      borderRadius={"0.5rem"}
+    >
+      <form onSubmit={handleSubmit}>
+        <Heading textAlign={"center"} marginBottom={"2rem"}>
+          Post Form
+        </Heading>
+        {/* <FormControl id="title">
+          <FormLabel>User-id</FormLabel>
+          <Input
+            type="text"
+            value={user}
+            onChange={(event) => setUser(event.target.value)}
+            required
+          />
+        </FormControl> */}
 
-      <FormControl id="content">
-        <FormLabel>Content</FormLabel>
-        <Textarea
-          value={content}
-          onChange={(event) => setContent(event.target.value)}
-          size="md"
-          resize="none"
-          rows={10}
-        />
-      </FormControl>
+        <FormControl id="content">
+          <FormLabel>Content</FormLabel>
+          <Textarea
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
+            size="md"
+            resize="none"
+            rows={10}
+          />
+        </FormControl>
 
-      <Button mt={4} colorScheme="teal" onClick={handleSubmit}>
-        Submit
-      </Button>
+        <Button mt={4} colorScheme="teal" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </form>
     </Box>
   );
 };
