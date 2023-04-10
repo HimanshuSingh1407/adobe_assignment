@@ -19,6 +19,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import { BiLike, BiDislike } from "react-icons/bi";
 import {
   Modal,
   ModalOverlay,
@@ -35,7 +36,7 @@ const BasicUsage = ({ isOpen, onClose, onOpen, posts }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>User Information</ModalHeader>
+          <ModalHeader>Content Information</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box key={posts.id}>
@@ -117,7 +118,7 @@ const PostList = () => {
 
   const getPosts = () => {
     axios
-      .get("http://localhost:8080/posts")
+      .get("https://adobebackend-mjc1.onrender.com/posts")
       .then((response) => setPosts(response.data))
       .catch((error) => console.log(error));
   };
@@ -128,23 +129,31 @@ const PostList = () => {
 
   const fetchPosts = (id) => {
     axios
-      .get(`http://localhost:8080/posts/${id}`)
+      .get(`https://adobebackend-mjc1.onrender.com/posts/${id}`)
       .then((response) => setState(response.data))
       .catch((error) => console.log(error));
   };
 
   const editPost = () => {
     axios
-      .put(`http://localhost:8080/posts/${id}`, { ...content })
+      .put(`https://adobebackend-mjc1.onrender.com/posts/${id}`, {content:content})
       .then((response) => getPosts())
       .catch((error) => console.log(error));
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8080/posts/${id}`).then(() => {
+    axios.delete(`https://adobebackend-mjc1.onrender.com/posts/${id}`).then(() => {
       getPosts();
     });
   };
+
+  const handleLike = (id) => {
+    console.log(id)
+    axios
+      .post(`https://adobebackend-mjc1.onrender.com/posts/${id}/like`)
+      .then((response) => getPosts())
+      .catch((error) => console.log(error));
+  }
 
   return (
     <>
@@ -182,6 +191,18 @@ const PostList = () => {
                   icon={<FaTrash />}
                   aria-label="Delete user"
                 />
+                <IconButton
+                  onClick={() => handleLike(post._id)}
+                  icon={<BiLike />}
+                  aria-label="Like"
+                />
+                <IconButton
+                  // onClick={() => handleDelete(post.id)}
+                  icon={<BiDislike />}
+                  aria-label="DisLike"
+                />
+                
+                
               </Td>
             </Tr>
           ))}

@@ -130,7 +130,7 @@ const UserList = () => {
 
   const getUsers = () => {
     axios
-      .get("http://localhost:8080/users")
+      .get(`https://adobebackend-mjc1.onrender.com/users`)
       .then((response) => setUsers(response.data))
       .catch((error) => console.log(error));
   };
@@ -141,7 +141,7 @@ const UserList = () => {
 
   const fetchUsers = (id) => {
     axios
-      .get(`http://localhost:8080/users/${id}`)
+      .get(`https://adobebackend-mjc1.onrender.com/users/${id}`)
       .then((response) => setState(response.data))
       .catch((error) => console.log(error));
   };
@@ -150,13 +150,13 @@ const UserList = () => {
     const data = { name, bio };
     console.log(data);
     axios
-      .put(`http://localhost:8080/users/${id}`, { ...data })
+      .put(`https://adobebackend-mjc1.onrender.com/users/${id}`, { ...data })
       .then((response) => getUsers())
       .catch((error) => console.log(error));
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8080/users/${id}`).then(() => {
+    axios.delete(`https://adobebackend-mjc1.onrender.com/users/${id}`).then(() => {
       getUsers();
     });
   };

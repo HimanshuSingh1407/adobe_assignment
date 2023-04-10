@@ -20,6 +20,12 @@ const Navbar = () => {
             <Button>
               <Link to={`/postList`}>Post-List</Link>
             </Button>
+            <Button>
+              <Link to={`/userAnalytics`}>User-Analytics</Link>
+            </Button>
+            <Button>
+              <Link to={`/postAnalytics`}>Post-Analytics</Link>
+            </Button>
           </HStack>
         </Center>
       </Container>

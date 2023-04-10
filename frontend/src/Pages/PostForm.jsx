@@ -28,9 +28,11 @@ const PostForm = () => {
     console.log(PostData);
 
     try {
-      const response = await axios.post("http://localhost:8080/posts", {
+      const response = await axios.post("https://adobebackend-mjc1.onrender.com/posts", {
         ...PostData,
       });
+      setUser("")
+      setContent("")
       console.log(response);
     } catch (error) {
       console.log(error.message);

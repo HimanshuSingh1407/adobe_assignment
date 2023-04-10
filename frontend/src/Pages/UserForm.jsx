@@ -21,10 +21,12 @@ const UserForm = () => {
     console.log(UserData);
 
     try {
-      const response = await axios.post("http://localhost:8080/users", {
+      const response = await axios.post("https://adobebackend-mjc1.onrender.com/users", {
         ...UserData,
       });
-      //   console.log(response);
+      setName("")
+      setEmail("")
+      setBio("")
       localStorage.setItem("user", JSON.stringify(response.data.id));
     } catch (error) {
       console.log(error.message);
